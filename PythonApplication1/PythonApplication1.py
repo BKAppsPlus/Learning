@@ -37,7 +37,7 @@ class LinkedList:
       temp = temp.next
 
 class Solution:
-  variable = "blah"
+  variable = "Solution"
   def isPalin(self, ll):
     stck = []
     slow = ll
@@ -108,18 +108,7 @@ class Solution:
     self.print_backward(tail)
     print(head.val)
     
-  def revFU(self,list):
-    current = list
-    prev = None
-    while (current != None):
-      next_Node = current.next
-      current.next = prev
-      prev = current
-      current = next_Node
-    
-    return prev
-    
-  def rev(self,list):
+  def reverse(self,list):
     current = list
     builder = None
     rev = None
@@ -130,54 +119,13 @@ class Solution:
       current = current.next
     return rev    
         
-
-  #builder = ListNode(current.val)
-    #builder.next = rev
-    #rev = builder
-    #current = current.next
-    
-    #builder = ListNode(current.val)
-    #builder.next = rev
-    #rev = builder
-    #current = current.next
-    
-    #builder = ListNode(current.val)
-    #builder.next = rev
-    #rev = builder
-    #current = current.next
-    
-
-
- # def copyFirst(self,list):
- #   if 
-
-    
-    # end_of_rest = list.next
-    # if end_of_rest == None:
-    #   return list
-    # else:
-    #   end_of_rest.next = newNode
-
-  def reverse(self, l):
-    list_first = None
-    list_rest_begin = None
-    list_rest_end = None
-    if (l == None):
-      pass
-    elif (l.next == None):
-      list_rest_begin = ListNode(l.val)
-    else:
-      list_first = ListNode(l.val)
-      list_rest_begin = ListNode(l.next.val)
-      list_rest_begin.next = list_first
-
-    return list_rest_begin
-  
   def push(self, l ,new_data): 
-    ph = l
-    l = ListNode(new_data) 
-    new_node.next =  l
-    l = new_node
+    newNode = ListNode(l.val) 
+    newNode.next =  l.next
+    l.val = new_data
+    l.next = newNode
+
+  
 
 
 # llist = LinkedList() 
@@ -204,12 +152,14 @@ a.next.next = ListNode(16)
 # b.next.next = ListNode(6)
 # c = Solution().mergeTwoLists(a,b)
 d = ListNode('AA')
+
 d.next = ListNode('BB')
 d.next.next = ListNode('CC')
+Solution().push(d,'AA0')
 Solution().printList(d)
 Solution().print_backward(d)
 print("---------------------")
-e = Solution().rev(d)
+e = Solution().reverse(d)
 Solution().printList(e)
 
 
