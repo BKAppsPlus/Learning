@@ -1,3 +1,4 @@
+
 # Definition for singly-linked list.
 class ListNode(object):
   def __init__(self, x):
@@ -121,26 +122,34 @@ class Solution:
   def rev(self,list):
     current = list
     builder = None
-    nodeA = None
-    builder = ListNode(current.val)
-    rev = builder
-    current = current.next
-    builder = ListNode(current.val)
-    builder.next = rev
-    rev = builder
-    current = current.next
-    builder = ListNode(current.val)
-    builder.next = rev
-    rev = builder
-    return rev
+    rev = None
+    while (current != None):
+      builder = ListNode(current.val)
+      builder.next = rev
+      rev = builder
+      current = current.next
+    return rev    
+        
 
+  #builder = ListNode(current.val)
+    #builder.next = rev
+    #rev = builder
+    #current = current.next
+    
+    #builder = ListNode(current.val)
+    #builder.next = rev
+    #rev = builder
+    #current = current.next
+    
+    #builder = ListNode(current.val)
+    #builder.next = rev
+    #rev = builder
+    #current = current.next
     
 
 
-
-
-  def copyFirst(self,list):
-    if 
+ # def copyFirst(self,list):
+ #   if 
 
     
     # end_of_rest = list.next
@@ -148,8 +157,6 @@ class Solution:
     #   return list
     # else:
     #   end_of_rest.next = newNode
-    
-
 
   def reverse(self, l):
     list_first = None
