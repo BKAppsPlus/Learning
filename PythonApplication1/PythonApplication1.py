@@ -125,49 +125,39 @@ class Solution:
     l.val = new_data
     l.next = newNode
 
-  
+  def addTwoNumbers(self, list1, list2):
+    sum = 0
+    rem = 0
+    sumNodes = ListNode(0)
+    while (list1.next != None and list2.next != None):
+      sum = rem + list1.val + list2.val
+      rem = sum // 10
+      sum = sum - (rem * 10)
+      sumNodes = Solution().push(sumNodes,sum)
+
+    return sumNodes
 
 
-# llist = LinkedList() 
-# llist.push(20) 
-# llist.push(4) 
-# llist.push(15) 
-# llist.push(85) 
-  
-# print("Given Linked List")
-# llist.printList() 
-# llist.reverse() 
-# print("\nReversed Linked List")
-# llist.printList() 
-  
 
-# myobjectx = Solution()
-# myobjectx.variable
 
-a = ListNode(12)
-a.next = ListNode(14)
-a.next.next = ListNode(16)
-# b = ListNode(2)
-# b.next = ListNode(4)
-# b.next.next = ListNode(6)
-# c = Solution().mergeTwoLists(a,b)
-d = ListNode('AA')
 
-d.next = ListNode('BB')
-d.next.next = ListNode('CC')
-Solution().push(d,'AA0')
+l1 = ListNode(2)
+l1.next = ListNode(4)
+l1.next.next = ListNode(3)
+
+l2 = ListNode(5)
+l2.next = ListNode(6)
+l2.next.next = ListNode(4)
+
+result = Solution().addTwoNumbers(l1, l2)
+
+d = ListNode('CC')
+Solution().push(d,'BB')
+Solution().push(d,'AA')
+Solution().push(d,'A0')
 Solution().printList(d)
 Solution().print_backward(d)
 print("---------------------")
 e = Solution().reverse(d)
 Solution().printList(e)
 
-
-#
-#e = Solution().reverse(d)
-#Solution().printList(d)
-#Solution().printList(e)
-# print(e.next.val)
-
-# print(d.val)
-# print(d.next.val)
