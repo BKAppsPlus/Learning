@@ -120,20 +120,35 @@ class Solution:
     return rev    
         
   def push(self, l ,new_data): 
-    newNode = ListNode(l.val) 
-    newNode.next =  l.next
-    l.val = new_data
-    l.next = newNode
+    newNode = ListNode(new_data)
+    newNode.next =  l
+    return newNode
 
+  #Working on
   def addTwoNumbers(self, list1, list2):
-    sum = 0
-    rem = 0
-    sumNodes = ListNode(0)
-    while (list1.next != None and list2.next != None):
-      sum = rem + list1.val + list2.val
-      rem = sum // 10
-      sum = sum - (rem * 10)
-      sumNodes = Solution().push(sumNodes,sum)
+    sum = rem = 0
+    val1 = val2 = sumNodes = newSumNode = lastNode = None
+    if (list1 == None or list2 == None):
+      return
+    else:
+      val1 = list1
+      val2 = list2
+
+      while (val1 != None and val2 != None):
+        sum = rem + val1.val + val2.val
+        rem = sum // 10
+        sum = sum - (rem * 10)
+        newSumNode = ListNode(sum)
+        if sumNodes == None:
+         sumNodes = newSumNode
+         lastNode = sumNodes
+        else:
+          lastNode.next = newSumNode
+          lastNode = lastNode.next
+        
+        val1 = val1.next
+        val2 = val2.next
+
 
     return sumNodes
 
@@ -143,21 +158,23 @@ class Solution:
 
 l1 = ListNode(2)
 l1.next = ListNode(4)
-l1.next.next = ListNode(3)
+l1.next.next = ListNode(9)
 
 l2 = ListNode(5)
 l2.next = ListNode(6)
 l2.next.next = ListNode(4)
-
+Solution().printList(l1)
+Solution().printList(l2)
 result = Solution().addTwoNumbers(l1, l2)
+Solution().printList(result)
 
-d = ListNode('CC')
-Solution().push(d,'BB')
-Solution().push(d,'AA')
-Solution().push(d,'A0')
-Solution().printList(d)
-Solution().print_backward(d)
-print("---------------------")
-e = Solution().reverse(d)
-Solution().printList(e)
+# d = ListNode('CC')
+# d = Solution().push(d,'BB')
+# d = Solution().push(d,'AA')
+# d = Solution().push(d,'A0')
+# Solution().printList(d)
+# Solution().print_backward(d)
+# print("---------------------")
+# e = Solution().reverse(d)
+# Solution().printList(e)
 
