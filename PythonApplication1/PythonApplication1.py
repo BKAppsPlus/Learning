@@ -107,7 +107,6 @@ class Solution:
     tail = list.next
     self.print_backward(tail)
     print(head.val)
-    
   def reverse(self,list):
     current = list
     builder = None
@@ -118,56 +117,94 @@ class Solution:
       rev = builder
       current = current.next
     return rev    
-        
   def push(self, l ,new_data): 
     newNode = ListNode(new_data)
     newNode.next =  l
     return newNode
-
-  #Working on
   def addTwoNumbers(self, list1, list2):
-    sum = rem = 0
-    val1 = val2 = sumNodes = newSumNode = lastNode = None
-    if (list1 == None or list2 == None):
-      return
-    else:
-      val1 = list1
-      val2 = list2
+    sum = rem = num1 = num2 = 0
+    sumNodes = newSumNode = lastNode = None
+    val1 = list1
+    val2 = list2
 
-      while (val1 != None and val2 != None):
-        sum = rem + val1.val + val2.val
-        rem = sum // 10
-        sum = sum - (rem * 10)
-        newSumNode = ListNode(sum)
-        if sumNodes == None:
-         sumNodes = newSumNode
-         lastNode = sumNodes
-        else:
-          lastNode.next = newSumNode
-          lastNode = lastNode.next
+    while (val1 != None or val2 != None):
+      if val1 == None: num1 = 0
+      else: num1 = val1.val
+      
+      if val2 == None: num2 = 0
+      else: num2 = val2.val
+
+      sum = rem + num1 + num2
+      rem = sum // 10
+      sum = sum - (rem * 10)
+      newSumNode = ListNode(sum)
+      
+      if sumNodes == None:
+        sumNodes = newSumNode
+        lastNode = sumNodes
+      else:
+        lastNode.next = newSumNode
+        lastNode = lastNode.next
         
-        val1 = val1.next
-        val2 = val2.next
+      val1 = val1.next if val1 else None 
+      val2 = val2.next if val2 else None 
 
-
+    
+    if rem != 0:
+      newSumNode = ListNode(rem)
+      lastNode.next = newSumNode
+      lastNode = lastNode.next
+    
     return sumNodes
+  def lengthOfLongestSubstring(self, theString):
+    n = len(theString)
+    current_pos = 0
+    maxlen = 0
+    start = 0
+    
+    pos ={} 
+
+    pos[theString[0]] = 0
+
+    print(pos)
+
+    for i in range(1,n):
+      if theString[i] not in pos:
+        pos[theString[i]]=i
+      else:
+        if pos[theString[i]] >= current_pos:
+          current_length = i - current_pos
+          if maxlen < current_length:
+            maxlen = current_length
+            start = current_pos 
+
+          current_pos = pos[theString[i]] + 1
+    if maxlen < i - current_pos:
+      maxlen = i - current_pos
+      start = current_pos
+    print(i)
+    return theString[start : start + maxlen]  
 
 
 
 
+print(Solution().lengthOfLongestSubstring('abcdfegaqwerlkjhoi'))
 
-l1 = ListNode(2)
-l1.next = ListNode(4)
-l1.next.next = ListNode(9)
 
-l2 = ListNode(5)
-l2.next = ListNode(6)
-l2.next.next = ListNode(4)
-Solution().printList(l1)
-Solution().printList(l2)
-result = Solution().addTwoNumbers(l1, l2)
-Solution().printList(result)
+#l1 = ListNode(9)
+#l1.next = ListNode(9)
+##l1.next.next = ListNode(9)
 
+#l2 = ListNode(9)
+#l2.next = ListNode(9)
+#l2.next.next = ListNode(9)
+#Solution().printList(l1)
+#print("---------------------")
+#Solution().printList(l2)
+#print("---------------------")
+#result = Solution().addTwoNumbers(l1, l2)
+#Solution().printList(result)
+#input('Press ENTER to continue...')
 # d = ListNode('CC')
 # d = Solution().push(d,'BB')
 # d = Solution().push(d,'AA')
