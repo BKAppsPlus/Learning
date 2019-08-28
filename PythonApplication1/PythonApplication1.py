@@ -1,13 +1,8 @@
 
 # Definition for singly-linked list.
 class ListNode(object):
-  def __init__(self, x):
-    self.val = x
-    self.next = None
-class Node: 
-  # Constructor to initialize the node object 
-  def __init__(self, data): 
-    self.data = data 
+  def __init__(self, data):
+    self.val = data
     self.next = None
 class LinkedList: 
   # Function to initialize head 
@@ -25,10 +20,9 @@ class LinkedList:
     self.head = prev 
   # Function to insert a new node at the beginning 
   def push(self, new_data): 
-    new_node = Node(new_data) 
+    new_node = ListNode(new_data) 
     new_node.next = self.head 
     self.head = new_node 
-  
   # Utility function to print the linked LinkedList 
   def printList(self): 
     temp = self.head 
@@ -156,6 +150,43 @@ class Solution:
       lastNode = lastNode.next
     
     return sumNodes
+  def allUnique(self, s,  start, end):
+    pos_set = set()
+    ss = s[start:end]
+    for i in range(start, end):
+      ch = s[i]
+      if ch in pos_set: return False
+      pos_set.add(ch)
+    
+    return True
+  def lengthOfLongestSubstringNaive(self, s):
+    n = len(s)
+    ans = 0
+    for i in range(n):
+      for j in range(i+1, n+1):
+        ss = s[i:j]
+        if self.allUnique(s, i, j):
+          ans = max(ans, j-i)
+    
+    return ans
+
+  
+  def lengthOfLongestSubstringBasic(self, theString):
+    n = len(theString)
+    pos_set = set()
+    answer = i = j = 0
+    while (i < n and j < n):
+      #try to extend the range [i, j]
+      if (theString[j] not in pos_set):
+        pos_set.add(theString[j])
+        j += 1
+        answer = max(answer, j - i)
+        
+      else:
+        pos_set.remove(theString[i])
+        i += 1
+    return answer
+
   def lengthOfLongestSubstring(self, theString):
     n = len(theString)
     current_pos = 0
@@ -184,11 +215,15 @@ class Solution:
       start = current_pos
     print(i)
     return theString[start : start + maxlen]  
+  
 
+  
 
+#print(Solution().lengthOfLongestSubstringNaive('ababcd'))
+print(Solution().lengthOfLongestSubstringBasic('abcdabcdefghijklmnde'))
 
-
-print(Solution().lengthOfLongestSubstring('abcdfegaqwerlkjhoi'))
+number = 1
+number += 1
 
 
 #l1 = ListNode(9)
