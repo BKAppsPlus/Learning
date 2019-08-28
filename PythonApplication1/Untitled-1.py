@@ -1,19 +1,14 @@
-class Human:
+mydic = {}
+mydic['a'] = 1
+mydic['b'] = 2
+mydic['c'] = 3
+mydic['d'] = 4
+mydic['e'] = 5
 
-    def __init__(self):
-        self.name = 'Guido'
-        self.head = self.Head()
-        self.brain = self.Brain()
-    
-    class Head:
-        def talk(self):
-            return 'talking...'
 
-    class Brain:
-        def think(self):
-            return 'thinking...'
+print(mydic)
+mydic.pop('a')
 
-guido = Human()
-print(guido.name)
-print(guido.head.talk())
-print(guido.brain.think())
+mydic.popitem()
+
+print ('sasgd')

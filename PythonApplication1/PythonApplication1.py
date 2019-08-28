@@ -169,8 +169,6 @@ class Solution:
           ans = max(ans, j-i)
     
     return ans
-
-  
   def lengthOfLongestSubstringBasic(self, theString):
     n = len(theString)
     pos_set = set()
@@ -186,13 +184,27 @@ class Solution:
         pos_set.remove(theString[i])
         i += 1
     return answer
+  
+  
+  
+  def lengthOfLongestSubstringOptimized(self, theString):
+    n = len(theString)
+    answer = i = j = 0
+    char_map = {}
+    for j in range(n):
+      if (theString[j] in char_map):
+        i = max(i, char_map[theString[j]])
+
+      answer = max(answer, j-i+1)
+      char_map[theString[j]] = j+1
+    return answer
+
 
   def lengthOfLongestSubstring(self, theString):
     n = len(theString)
     current_pos = 0
     maxlen = 0
     start = 0
-    
     pos ={} 
 
     pos[theString[0]] = 0
@@ -220,7 +232,8 @@ class Solution:
   
 
 #print(Solution().lengthOfLongestSubstringNaive('ababcd'))
-print(Solution().lengthOfLongestSubstringBasic('abcdabcdefghijklmnde'))
+print(Solution().lengthOfLongestSubstringBasic('abcdcdefghijklmnde'))
+print(Solution().lengthOfLongestSubstringOptimized('abcdcdefghijklmnde'))
 
 number = 1
 number += 1
