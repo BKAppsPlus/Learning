@@ -32,6 +32,10 @@ class LinkedList:
 
 class Solution:
   variable = "Solution"
+  def function(self):
+    print("This is a message inside the class.")
+    print('More')
+
   def isPalin(self, ll):
     stck = []
     slow = ll
@@ -89,8 +93,6 @@ class Solution:
         acurrent.next = aanextNode
       acurrent = aanextNode
     return aroot
-  def function(self):
-        print("This is a message inside the class.")
   def printList(self, dd):
     while dd:
       print(dd.val)
@@ -179,18 +181,14 @@ class Solution:
         pos_set.add(theString[j])
         j += 1
         answer = max(answer, j - i)
-        
       else:
         pos_set.remove(theString[i])
         i += 1
     return answer
-  
-  
-  
   def lengthOfLongestSubstringOptimized(self, theString):
     n = len(theString)
     answer = i = j = 0
-    char_map = {}
+    char_map = {} # char_map[char] = location of last char occurance
     for j in range(n):
       if (theString[j] in char_map):
         i = max(i, char_map[theString[j]])
@@ -198,45 +196,118 @@ class Solution:
       answer = max(answer, j-i+1)
       char_map[theString[j]] = j+1
     return answer
+  
+  #https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/
+  def lengthOfLongestSubstringGeeksForGeeks(self, theString):
+    n = len(theString) 
+    cur_len = 1       # To store the length of current substring 
+    max_len = 1       # To store the result 
+    prev_index = 0    # To store the previous index 
+    i = 0
+  
+    # Initialize the visited array as -1, -1 is used to indicate 
+    # that character has not been visited yet. 
+    visited = [-1] * 256
+  
+    # Mark first character as visited by storing the index of 
+    # first character in visited array. 
+    visited[ord(theString[0])] = 0
+  
+    # Start from the second character. First character is already 
+    # processed (cur_len and max_len are initialized as 1, and 
+    # visited[str[0]] is set 
+    for i in range(1, n): 
+      prev_index = visited[ord(theString[i])] 
+  
+      # If the currentt character is not present in the already 
+      # processed substring or it is not part of the current NRCS, 
+      # then do cur_len++ 
+      if prev_index == -1 or (i - cur_len > prev_index): 
+        cur_len+= 1
+      # If the current character is present in currently considered 
+      # NRCS, then update NRCS to start from the next character of 
+      # previous instance. 
+      else: 
+        # Also, when we are changing the NRCS, we should also 
+        # check whether length of the previous NRCS was greater 
+        # than max_len or not. 
+        max_len = max(max_len, cur_len)
+        
+        cur_len = i - prev_index 
+  
+      # update the index of current character 
+      visited[ord(theString[i])] = i 
+  
+    # Compare the length of last NRCS with max_len and update 
+    # max_len if needed 
+    if cur_len > max_len: 
+        max_len = cur_len 
+  
+    return max_len     
 
-
-  def lengthOfLongestSubstring(self, theString):
-    n = len(theString)
-    current_pos = 0
+  #https://www.geeksforgeeks.org/print-longest-substring-without-repeating-characters/
+  def findLongestSubstring(self, theString): 
+    n = len(theString)  
+    # starting point of current substring.  
+    st = 0
+    # maximum length substring without  
+    # repeating characters.  
     maxlen = 0
+    # starting index of maximum  
+    # length substring.  
     start = 0
-    pos ={} 
-
+    # Hash Map to store last occurrence  
+    # of each already visited character.  
+    pos = {}  
+    # Last occurrence of first 
+    # character is index 0  
     pos[theString[0]] = 0
-
-    print(pos)
-
-    for i in range(1,n):
-      if theString[i] not in pos:
-        pos[theString[i]]=i
-      else:
-        if pos[theString[i]] >= current_pos:
-          current_length = i - current_pos
-          if maxlen < current_length:
-            maxlen = current_length
-            start = current_pos 
-
-          current_pos = pos[theString[i]] + 1
-    if maxlen < i - current_pos:
-      maxlen = i - current_pos
-      start = current_pos
-    print(i)
+  
+    for i in range(1, n):  
+      # If this character is not present in hash,  
+      # then this is first occurrence of this  
+      # character, store this in hash.  
+      if theString[i] not in pos:  
+        pos[theString[i]] = i  
+  
+      else: 
+        # If this character is present in hash then  
+        # this character has previous occurrence,  
+        # check if that occurrence is before or after  
+        # starting point of current substring.  
+        if pos[theString[i]] >= st:  
+          # find length of current substring and  
+          # update maxlen and start accordingly.  
+          currlen = i - st  
+          if maxlen < currlen:  
+            maxlen = currlen  
+            start = st  
+  
+            # Next substring will start after the last  
+            # occurrence of current character to avoid  
+            # its repetition.  
+          st = pos[theString[i]] + 1
+        # Update last occurrence of  
+        # current character.  
+        pos[theString[i]] = i  
+          
+    # Compare length of last substring with maxlen  
+    # and update maxlen and start accordingly.  
+    if maxlen < i - st:  
+      maxlen = i - st  
+      start = st  
+      
+    # The required longest substring without  
+    # repeating characters is from string[start]  
+    # to string[start+maxlen-1].  
     return theString[start : start + maxlen]  
-  
 
-  
 
 #print(Solution().lengthOfLongestSubstringNaive('ababcd'))
-print(Solution().lengthOfLongestSubstringBasic('abcdcdefghijklmnde'))
-print(Solution().lengthOfLongestSubstringOptimized('abcdcdefghijklmnde'))
-
-number = 1
-number += 1
+#print(Solution().lengthOfLongestSubstringBasic('abcdcdefghijklmndxyz'))
+#print(Solution().lengthOfLongestSubstringOptimized('abcdcdefghijklmndxyz'))
+print(Solution().findLongestSubstring('abcdcdefghijklmndxyz'))
+print('end')
 
 
 #l1 = ListNode(9)
